@@ -1,7 +1,7 @@
 
 # FHIR Data Lakehouse - Medallion Architecture Implementation
 
-## 🎯 Project Overview
+##  Project Overview
 
 A production-ready **Medallion Lakehouse Architecture** implementation for healthcare data ingestion and analytics using the FHIR API standard.
 
@@ -13,21 +13,21 @@ A production-ready **Medallion Lakehouse Architecture** implementation for healt
 
 ---
 
-## ✅ Assignment Requirements Met
+##  Assignment Requirements Met
 
-✅ **Incremental ingestion with pagination** - 1000 FHIR entries (5 pages × 4 resources)  
-✅ **Store raw JSON responses** - 20 JSON files partitioned by date  
-✅ **Medallion Architecture** - 4 complete layers implemented  
-✅ **Metadata columns** - extraction_timestamp, api_url, ingestion_date  
-✅ **SCD Type 2 versioning** - Historical tracking with record_hash, is_current, valid_from, valid_to  
-✅ **Delta tables** - All layers use Delta Lake format  
-✅ **Modular code** - Reusable utilities, no hardcoding  
-✅ **Orchestration pipeline** - Automated Databricks Workflow with dependencies  
-✅ **Documentation** - Complete with architecture diagrams and schemas  
+ **Incremental ingestion with pagination** - 1000 FHIR entries (5 pages × 4 resources)  
+ **Store raw JSON responses** - 20 JSON files partitioned by date  
+ **Medallion Architecture** - 4 complete layers implemented  
+ **Metadata columns** - extraction_timestamp, api_url, ingestion_date  
+ **SCD Type 2 versioning** - Historical tracking with record_hash, is_current, valid_from, valid_to  
+ **Delta tables** - All layers use Delta Lake format  
+ **Modular code** - Reusable utilities, no hardcoding  
+ **Orchestration pipeline** - Automated Databricks Workflow with dependencies  
+ **Documentation** - Complete with architecture diagrams and schemas  
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -95,7 +95,7 @@ A production-ready **Medallion Lakehouse Architecture** implementation for healt
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 FHIR-Assignment-Submission/
@@ -152,7 +152,7 @@ FHIR-Assignment-Submission/
 
 ---
 
-## 🔄 Pipeline Orchestration
+##  Pipeline Orchestration
 
 ### Workflow Execution
 
@@ -184,7 +184,7 @@ Task 4: Gold Layer (14s)
 
 ---
 
-## 📊 Data Model
+##  Data Model
 
 ### Resources Ingested
 
@@ -237,7 +237,7 @@ valid_to                DATE        -- Version end date (NULL = current)
 
 ---
 
-## 🔄 SCD Type 2 Implementation
+##  SCD Type 2 Implementation
 
 ### How It Works
 
@@ -271,7 +271,7 @@ AFTER:
 
 ---
 
-## 📈 Data Statistics
+##  Data Statistics
 
 ### Pipeline Summary
 
@@ -357,17 +357,17 @@ Edit `config/config.json`:
 
 ---
 
-## 🏆 Best Practices Implemented
+##  Best Practices Implemented
 
-✅ **Modular Code** - Reusable utilities (api_client, scd_handler)  
-✅ **No Hardcoding** - All configs in JSON file  
-✅ **Error Handling** - Retry logic for API calls  
-✅ **Metadata Tracking** - Complete audit trail  
-✅ **Data Partitioning** - Optimized queries  
-✅ **SCD Type 2** - Historical change tracking  
-✅ **Delta Lake** - ACID transactions  
-✅ **Serverless Compute** - Auto-scaling  
-✅ **Documentation** - Comprehensive guides  
+ **Modular Code** - Reusable utilities (api_client, scd_handler)  
+ **No Hardcoding** - All configs in JSON file  
+ **Error Handling** - Retry logic for API calls  
+ **Metadata Tracking** - Complete audit trail  
+ **Data Partitioning** - Optimized queries  
+ **SCD Type 2** - Historical change tracking  
+ **Delta Lake** - ACID transactions  
+ **Serverless Compute** - Auto-scaling  
+ **Documentation** - Comprehensive guides  
 
 ---
 
@@ -393,17 +393,17 @@ DROP TABLE IF EXISTS fhir_lakehouse.bronze_patient;
 ---
 
 
-- ✅ Complete source code (5 notebooks, 3 utility files)
-- ✅ Configuration files
-- ✅ Working Databricks Workflow
-- ✅ Complete documentation
-- ✅ SCD Type 2 implementation
-- ✅ Metadata tracking
-- ✅ Screenshots
+-  Complete source code (5 notebooks, 3 utility files)
+-  Configuration files
+-  Working Databricks Workflow
+-  Complete documentation
+-  SCD Type 2 implementation
+-  Metadata tracking
+-  Screenshots
 
 ---
 
-## 👨‍💻 Technical Stack
+##  Technical Stack
 
 **Technologies:**
 - Platform: Databricks (Serverless)
@@ -420,17 +420,17 @@ DROP TABLE IF EXISTS fhir_lakehouse.bronze_patient;
 
 ---
 
-## 📄 License
+##  License
 
 Educational project for FHIR API Data Ingestion & Analytics Assignment
 
 ---
 
-## 📧 Contact
+## Contact
 
 Created: April 18, 2026  
 Platform: Databricks  
-Status: ✅ Complete and Production-Ready
+Status:  Complete and Production-Ready
 
 ---
 
