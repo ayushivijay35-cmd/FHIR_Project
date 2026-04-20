@@ -10,8 +10,6 @@ spark.sql(f"USE {DATABASE}")
 
 scd_handler = SCDType2Handler(spark)
 
-# COMMAND ----------
-
 # Process Patient with SCD Type 2
 bronze_patient = spark.table(f"{DATABASE}.bronze_patient")
 
@@ -23,9 +21,7 @@ stats = scd_handler.merge_scd_type2(
     database=DATABASE
 )
 
-print(f"✓ silver_patient: {stats}")
-
-# COMMAND ----------
+print(f" silver_patient: {stats}")
 
 # Process Encounter with SCD Type 2
 bronze_encounter = spark.table(f"{DATABASE}.bronze_encounter")
@@ -38,9 +34,7 @@ stats = scd_handler.merge_scd_type2(
     database=DATABASE
 )
 
-print(f"✓ silver_encounter: {stats}")
-
-# COMMAND ----------
+print(f" silver_encounter: {stats}")
 
 # Process Observation with SCD Type 2
 bronze_observation = spark.table(f"{DATABASE}.bronze_observation")
@@ -53,9 +47,7 @@ stats = scd_handler.merge_scd_type2(
     database=DATABASE
 )
 
-print(f"✓ silver_observation: {stats}")
-
-# COMMAND ----------
+print(f" silver_observation: {stats}")
 
 # Process Condition with SCD Type 2
 bronze_condition = spark.table(f"{DATABASE}.bronze_condition")
@@ -68,13 +60,8 @@ stats = scd_handler.merge_scd_type2(
     database=DATABASE
 )
 
-print(f"✓ silver_condition: {stats}")
-
-# COMMAND ----------
-
+print(f" silver_condition: {stats}")
 print(" Silver layer with SCD Type 2 completed")
-
-# COMMAND ----------
 
 #for testing scd type 2 is working
 # Adding this as a new cell in 03_silver_layer notebook
