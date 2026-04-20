@@ -23,7 +23,7 @@ print(f"Volume: {VOLUME_PATH}")
 # Create database
 spark.sql(f"CREATE SCHEMA IF NOT EXISTS {DATABASE}")
 spark.sql(f"USE {DATABASE}")
-print(f"✓ Database created: {DATABASE}")
+print(f" Database created: {DATABASE}")
 
 # COMMAND ----------
 
@@ -40,7 +40,7 @@ for table in tables_to_drop:
     except:
         pass
 
-print("✓ Existing tables dropped")
+print(" Existing tables dropped")
 
 # COMMAND ----------
 
@@ -58,7 +58,7 @@ for resource in ["patient", "encounter", "observation", "condition"]:
         except:
             pass
 
-print("✓ Folders created")
+print("Folders created")
 
 # COMMAND ----------
 
@@ -83,7 +83,7 @@ spark.createDataFrame([], bronze_patient_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.bronze_patient")
 
-print("✓ bronze_patient")
+print(" bronze_patient")
 
 # COMMAND ----------
 
@@ -107,7 +107,7 @@ spark.createDataFrame([], bronze_encounter_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.bronze_encounter")
 
-print("✓ bronze_encounter")
+print("bronze_encounter")
 
 # COMMAND ----------
 
@@ -132,7 +132,7 @@ spark.createDataFrame([], bronze_observation_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.bronze_observation")
 
-print("✓ bronze_observation")
+print(" bronze_observation")
 
 # COMMAND ----------
 
@@ -155,7 +155,7 @@ spark.createDataFrame([], bronze_condition_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.bronze_condition")
 
-print("✓ bronze_condition")
+print("bronze_condition")
 
 # COMMAND ----------
 
@@ -173,7 +173,7 @@ spark.createDataFrame([], silver_patient_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.silver_patient")
 
-print("✓ silver_patient")
+print("silver_patient")
 
 # COMMAND ----------
 
@@ -191,7 +191,7 @@ spark.createDataFrame([], silver_encounter_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.silver_encounter")
 
-print("✓ silver_encounter")
+print("silver_encounter")
 
 # COMMAND ----------
 
@@ -209,7 +209,7 @@ spark.createDataFrame([], silver_observation_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.silver_observation")
 
-print("✓ silver_observation")
+print(" silver_observation")
 
 # COMMAND ----------
 
@@ -227,7 +227,7 @@ spark.createDataFrame([], silver_condition_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.silver_condition")
 
-print("✓ silver_condition")
+print(" silver_condition")
 
 # COMMAND ----------
 
@@ -246,13 +246,13 @@ spark.createDataFrame([], metadata_schema) \
     .write.format("delta").mode("overwrite") \
     .saveAsTable(f"{DATABASE}.pipeline_metadata_log")
 
-print("✓ pipeline_metadata_log")
+print(" pipeline_metadata_log")
 
 # COMMAND ----------
 
 print("""
 ╔═══════════════════════════════════════╗
-║  SETUP COMPLETED ✓                    ║
+║  SETUP COMPLETED                    ║
 ╠═══════════════════════════════════════╣
 ║  Database: fhir_lakehouse             ║
 ║  Bronze tables: 4                     ║
