@@ -5,8 +5,6 @@ from utils_scd_handler import SCDType2Handler
 from pyspark.sql.functions import col, when, lit
 from datetime import datetime
 
-# COMMAND ----------
-
 DATABASE = "fhir_lakehouse"
 spark.sql(f"USE {DATABASE}")
 
@@ -23,8 +21,6 @@ sample_patients = spark.table("bronze_patient").limit(3).collect()
 patient_ids = [row.id for row in sample_patients]
 
 print(f"Will modify these patients: {patient_ids}")
-
-# Show current state
 print("\nCurrent state in Silver:")
 spark.table("silver_patient").filter(col("id").isin(patient_ids)).select(
     "id", "name_family", "gender", "address_city", "is_current", "valid_from", "valid_to"
@@ -77,8 +73,6 @@ print(f"Total records:       {total_count_after}")
 print(f"Historical versions: {historical_count}")
 print(f"{'='*70}")
 
-# COMMAND ----------
-
 # Show versions for modified patients
 print(f"\nHistorical Versions for Modified Patients:")
 print(f"{'='*70}\n")
@@ -95,8 +89,6 @@ for patient_id in patient_ids:
         "is_current", "valid_from", "valid_to"
     ).show(truncate=False)
 
-
-# Create detailed report
 report_df = spark.sql(f"""
     SELECT 
         id,
@@ -140,14 +132,14 @@ verification_query.show(truncate=False)
 
 print("""
 ╔═══════════════════════════════════════════════════════════════╗
-║          SCD TYPE 2 VERIFICATION COMPLETE ✓                   ║
+║          SCD TYPE 2 VERIFICATION COMPLETE                   ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║                                                               ║
-║  ✓ Multiple versions created for changed records             ║
-║  ✓ Old versions marked: is_current = FALSE                   ║
-║  ✓ Old versions have valid_to date set                       ║
-║  ✓ New versions marked: is_current = TRUE                    ║
-║  ✓ New versions have valid_to = NULL                         ║
+║   Multiple versions created for changed records             ║
+║   Old versions marked: is_current = FALSE                   ║
+║   Old versions have valid_to date set                       ║
+║   New versions marked: is_current = TRUE                    ║
+║   New versions have valid_to = NULL                         ║
 ║                                                               ║
 ║  SCD Type 2 is WORKING CORRECTLY!                            ║
 ║                                                               ║
