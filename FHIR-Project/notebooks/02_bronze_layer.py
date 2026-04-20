@@ -5,17 +5,11 @@ from pyspark.sql import Row
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
-# COMMAND ----------
-
 # Configuration
 VOLUME_PATH = "/Volumes/workspace/default/fhir_lakehouse"
 DATABASE = "fhir_lakehouse"
 
 spark.sql(f"USE {DATABASE}")
-
-# COMMAND ----------
-
-# Helper function to parse timestamp
 def parse_timestamp(ts_string):
     """Convert FHIR datetime string to timestamp"""
     if not ts_string:
@@ -29,9 +23,6 @@ def parse_timestamp(ts_string):
     except:
         return None
 
-# COMMAND ----------
-
-# Process Patient
 patient_path = f"{VOLUME_PATH}/raw/patient"
 patient_files = dbutils.fs.ls(patient_path)
 patient_records = []
@@ -76,7 +67,6 @@ if patient_records:
     patient_df.write.format("delta").mode("overwrite").saveAsTable(f"{DATABASE}.bronze_patient")
     print(f"✓ bronze_patient: {patient_df.count()} records")
 
-# COMMAND ----------
 
 # Process Encounter
 encounter_path = f"{VOLUME_PATH}/raw/encounter"
@@ -120,8 +110,6 @@ if encounter_records:
     encounter_df = spark.createDataFrame([Row(**r) for r in encounter_records])
     encounter_df.write.format("delta").mode("overwrite").saveAsTable(f"{DATABASE}.bronze_encounter")
     print(f"✓ bronze_encounter: {encounter_df.count()} records")
-
-# COMMAND ----------
 
 # Process Observation
 observation_path = f"{VOLUME_PATH}/raw/observation"
@@ -169,7 +157,6 @@ if observation_records:
     observation_df.write.format("delta").mode("overwrite").saveAsTable(f"{DATABASE}.bronze_observation")
     print(f"✓ bronze_observation: {observation_df.count()} records")
 
-# COMMAND ----------
 
 # Process Condition
 condition_path = f"{VOLUME_PATH}/raw/condition"
@@ -217,7 +204,4 @@ if condition_records:
     condition_df = spark.createDataFrame([Row(**r) for r in condition_records])
     condition_df.write.format("delta").mode("overwrite").saveAsTable(f"{DATABASE}.bronze_condition")
     print(f"✓ bronze_condition: {condition_df.count()} records")
-
-# COMMAND ----------
-
 print(" Bronze layer completed")
