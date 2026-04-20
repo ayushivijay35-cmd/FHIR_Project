@@ -18,9 +18,7 @@ FROM {DATABASE}.silver_patient
 WHERE is_current = TRUE
 """)
 
-print("✓ gold_patient_demographics")
-
-# COMMAND ----------
+print(" gold_patient_demographics")
 
 # Gold Encounter Summary
 spark.sql(f"""
@@ -39,9 +37,7 @@ FROM {DATABASE}.silver_encounter e
 WHERE e.is_current = TRUE
 """)
 
-print("✓ gold_encounter_summary")
-
-# COMMAND ----------
+print("gold_encounter_summary")
 
 # Gold Patient Encounter Facts
 spark.sql(f"""
@@ -61,9 +57,7 @@ WHERE p.is_current = TRUE
 GROUP BY p.id, p.name_family, p.gender, p.birth_date
 """)
 
-print("✓ gold_patient_encounter_facts")
-
-# COMMAND ----------
+print("gold_patient_encounter_facts")
 
 # Gold Observation Summary
 spark.sql(f"""
@@ -83,9 +77,7 @@ GROUP BY code_code, code_display, value_unit
 ORDER BY observation_count DESC
 """)
 
-print("✓ gold_observation_summary")
-
-# COMMAND ----------
+print("gold_observation_summary")
 
 # Gold Condition Analysis
 spark.sql(f"""
@@ -106,34 +98,25 @@ print(" gold_condition_analysis")
 
 print(" Gold layer analytics views completed")
 
-# COMMAND ----------
+ %sql
+ -- Patient demographics
+SELECT * FROM fhir_lakehouse.gold_patient_demographics LIMIT 10;
 
-# MAGIC %sql
-# MAGIC -- Patient demographics
-# MAGIC SELECT * FROM fhir_lakehouse.gold_patient_demographics LIMIT 10;
-# MAGIC
-# MAGIC
+%sql
+ -- Encounter summary
+SELECT * FROM fhir_lakehouse.gold_encounter_summary LIMIT 10;
 
-# COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- Encounter summary
-# MAGIC SELECT * FROM fhir_lakehouse.gold_encounter_summary LIMIT 10;
+ %sql
+ -- Patient encounter facts (joined data)
+ SELECT * FROM fhir_lakehouse.gold_patient_encounter_facts LIMIT 10;
 
-# COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- Patient encounter facts (joined data)
-# MAGIC SELECT * FROM fhir_lakehouse.gold_patient_encounter_facts LIMIT 10;
+ %sql
+-- Top observations
+ SELECT * FROM fhir_lakehouse.gold_observation_summary LIMIT 10;
 
-# COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- Top observations
-# MAGIC SELECT * FROM fhir_lakehouse.gold_observation_summary LIMIT 10;
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- Top conditions
-# MAGIC SELECT * FROM fhir_lakehouse.gold_condition_analysis LIMIT 10;
+ %sql
+-- Top conditions
+ SELECT * FROM fhir_lakehouse.gold_condition_analysis LIMIT 10;
