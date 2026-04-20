@@ -1,7 +1,5 @@
-# Databricks notebook source
-# DBTITLE 1,Cell 1
 dbutils.library.restartPython()
-# Import libraries
+# Importing libraries
 import sys
 sys.path.append("/Workspace/Users/vijayaayushi1@gmail.com/FHIR-Project/utils")
 
@@ -10,8 +8,6 @@ from datetime import datetime
 from pyspark.sql import Row
 from pyspark.sql.functions import col
 from pyspark.sql.types import StructType, StructField, StringType, TimestampType, IntegerType
-
-# COMMAND ----------
 
 # Load configuration
 with open("/Volumes/workspace/default/fhir_lakehouse/config/config.json", "r") as f:
@@ -24,14 +20,10 @@ MAX_PAGES = config["api"]["pagination"]["max_pages_per_run"]
 VOLUME_PATH = "/Volumes/workspace/default/fhir_lakehouse"
 DATABASE = config["storage"]["database_name"]
 
-# COMMAND ----------
-
 # Initialize API client
 from api_client import FHIRAPIClient
 
 client = FHIRAPIClient(API_BASE_URL)
-
-# COMMAND ----------
 
 # Fetch data from FHIR API
 all_data = {}
@@ -39,8 +31,6 @@ all_data = {}
 for resource in RESOURCES:
     results = client.fetch_with_pagination(resource, PAGE_SIZE, MAX_PAGES)
     all_data[resource] = results
-
-# COMMAND ----------
 
 # Save JSON files to volume
 storage_summary = []
@@ -63,12 +53,8 @@ for resource_type, pages_data in all_data.items():
             "entry_count": len(json_data.get('entry', []))
         })
 
-# COMMAND ----------
-
 # Create metadata DataFrame
 metadata_df = spark.createDataFrame([Row(**item) for item in storage_summary])
-
-# COMMAND ----------
 
 # Log to metadata table
 log_schema = StructType([
@@ -95,7 +81,5 @@ for resource in RESOURCES:
     )], schema=log_schema)
     
     log_df.write.format("delta").mode("append").saveAsTable(f"{DATABASE}.pipeline_metadata_log")
-
-# COMMAND ----------
 
 print(" Raw ingestion completed")
